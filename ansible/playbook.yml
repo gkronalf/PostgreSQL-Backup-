@@ -1,0 +1,21 @@
+---
+
+- name: Postgres
+  hosts: all
+  become: yes
+  tasks:
+  #Устанавливаем vim и telnet (для более удобной работы с хостами)
+  - name: install base tools
+    dnf:
+      name:
+        - vim
+        - telnet
+      state: present
+      update_cache: true
+
+
+- name: install postgres 14 and set up replication
+  hosts: node1,node2
+  become: yes
+  roles:
+   - install_postgres
